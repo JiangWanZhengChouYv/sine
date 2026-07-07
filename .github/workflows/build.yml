@@ -16,7 +16,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install llvm bison mingw-w64
+          brew install llvm bison mingw-w64 autoconf automake libtool
 
       - name: Configure
         run: |
