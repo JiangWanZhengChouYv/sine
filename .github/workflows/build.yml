@@ -17,17 +17,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install llvm bison llvm-mingw autoconf automake libtool
+          brew install llvm bison autoconf automake libtool
 
       - name: Configure
         run: |
-          export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm-mingw/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/bison/bin:$PATH"
+          export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
           autoconf
           ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig
 
       - name: Build
         run: |
-          export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm-mingw/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/bison/bin:$PATH"
+          export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Verify build
