@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-macos:
+    name: Build on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew install llvm bison mingw-w64
+
+      - name: Configure
+        run: |
+          export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/bison/bin:$PATH"
+          autoconf
+          ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig
+
+      - name: Build
+        run: |
+          export PATH="/opt/homebrew/opt/llvm/bin:/opt/homebrew/opt/bison/bin:$PATH"
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Verify build
+        run: |
+          ./tools/wine/sine --version
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sine-macos
+          path: |
+            tools/wine/sine
+            loader/sine
+            dlls/*/*.so
+            dlls/*/*-unix/*.so
+          if-no-files-found: warn

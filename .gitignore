@@ -1,1 +1,85 @@
-crossover-reference/
+# Build outputs
+*.o
+*.so
+*.a
+*.dll
+*.exe
+*.res
+*.def
+*.exp
+*.lib
+*.pdb
+*.dSYM
+
+# Generated files
+Makefile
+config.h
+config.log
+config.status
+configure
+autom4te.cache/
+aclocal.m4
+
+# Wine build directories
+dlls/*/
+!dlls/*/
+programs/*/
+!programs/*/
+libs/*/
+!libs/*/
+
+# Object directories
+*-unix/
+*-windows/
+*-win32/
+*-win64/
+aarch64-windows/
+i386-windows/
+x86_64-unix/
+x86_64-windows/
+
+# Tools binaries
+tools/wine/sine
+tools/wine/wine
+tools/winebuild/winebuild
+tools/winebuild/sinebuild
+tools/winedump/winedump
+tools/winedump/sinedump
+tools/wmc/wmc
+tools/wmc/sinemc
+tools/wrc/wrc
+tools/wrc/sinerc
+tools/widl/widl
+tools/widl/sineidl
+tools/winegcc/winegcc
+tools/winegcc/sinegcc
+server/wineserver
+server/sineserver
+
+# Loader binary
+loader/sine
+loader/wine
+loader/sine-preloader
+loader/wine-preloader
+
+# Generated man pages
+*.1
+*.man
+!*.man.in
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.xcodeproj/
+*.xcworkspace/
+build/
+
+# Temporary files
+*~
+*.tmp
+*.bak
+*.swp

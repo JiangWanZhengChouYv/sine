@@ -12,10 +12,10 @@ UNIX_CFLAGS = -fPIE
 
 preloader_EXTRADEFS = -fno-builtin
 
-wine_OBJS = main.o
-wine_DEPS = $(WINELOADER_DEPENDS)
-wine_LDFLAGS = $(WINELOADER_LDFLAGS) $(LDEXECFLAGS) $(PTHREAD_LIBS)
+sine_OBJS = main.o
+sine_DEPS = $(WINELOADER_DEPENDS)
+sine_LDFLAGS = $(WINELOADER_LDFLAGS) $(LDEXECFLAGS) $(PTHREAD_LIBS)
 
-wine_preloader_OBJS = preloader.o preloader_mac.o
-wine_preloader_DEPS = $(WINELOADER_DEPENDS)
-wine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS)
+sine_preloader_OBJS = preloader.o preloader_mac.o
+sine_preloader_DEPS = $(WINELOADER_DEPENDS)
+sine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS)

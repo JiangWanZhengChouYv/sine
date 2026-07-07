@@ -1,6 +1,6 @@
-.TH WINE 1 "July 2013" "@PACKAGE_STRING@" "Windows On Unix"
+.TH SINE 1 "July 2013" "@PACKAGE_STRING@" "Windows On Unix"
 .SH NAME
-wine \- run Windows programs on Unix
+sine \- run Windows programs on Unix
 .SH SYNOPSIS
 .B wine
 .IR "program " [ arguments ]

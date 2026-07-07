@@ -6,7 +6,7 @@ m4_define(WINE_VERSION,regexp(m4_include(VERSION),[version \([-.0-9A-Za-z]+\)],[
 
 dnl autoconf versions before 2.63b don't have AS_VAR_APPEND or AS_VAR_IF
 AC_PREREQ(2.63b)
-AC_INIT([Wine],[WINE_VERSION],[wine-devel@winehq.org],[wine],[https://www.winehq.org])
+AC_INIT([Sine],[WINE_VERSION],[sine-dev@example.org],[sine],[https://example.org/sine])
 AC_CONFIG_SRCDIR(server/atom.c)
 AC_CONFIG_HEADERS(include/config.h)
 
@@ -208,7 +208,7 @@ if test -z "$toolsdir"; then
 fi
 if test -z "$toolsdir"; then
     wine_makedep=tools/makedep$toolsext
-elif test -d "$toolsdir/tools/winebuild"; then
+elif test -d "$toolsdir/tools/sinebuild"; then
     wine_makedep=$toolsdir/tools/makedep$toolsext
     enable_tools=${enable_tools:-no}
     test -f "$wine_makedep" || AC_MSG_ERROR([the Wine tools have not yet been built in $toolsdir])
@@ -2088,7 +2088,7 @@ fi
 
 dnl **** Platform-specific checks ****
 
-AC_SUBST(WINELOADER_PROGRAMS,"wine")
+AC_SUBST(WINELOADER_PROGRAMS,"sine")
 
 case $host_os in
   linux*)
@@ -2101,7 +2101,7 @@ esac
 
 if test "$wine_use_preloader" = "yes"
 then
-  WINELOADER_PROGRAMS="$WINELOADER_PROGRAMS wine-preloader"
+  WINELOADER_PROGRAMS="$WINELOADER_PROGRAMS sine-preloader"
   AC_DEFINE(HAVE_WINE_PRELOADER, 1, [Define to 1 if the Wine preloader is being used.])
 fi
 
@@ -3809,7 +3809,7 @@ dnl Rules for generated source files
 
 WINE_APPEND_RULE(
 [dlls/ntdll/unix/version.c: dummy
-	@version=\`(GIT_DIR=${wine_srcdir}.git git describe HEAD 2>/dev/null || echo \"wine-\$(PACKAGE_VERSION)\") | sed -n -e '\$\$s/\(.*\)/const char wine_build[[]] = \"\\1\";/p'\` && (echo \$\$version | cmp -s - \$[@]) || echo \$\$version >\$[@] || (rm -f \$[@] && exit 1)
+	@version=\`(GIT_DIR=${wine_srcdir}.git git describe HEAD 2>/dev/null || echo \"sine-\$(PACKAGE_VERSION)\") | sed -n -e '\$\$s/\(.*\)/const char wine_build[[]] = \"\\1\";/p'\` && (echo \$\$version | cmp -s - \$[@]) || echo \$\$version >\$[@] || (rm -f \$[@] && exit 1)
 programs/winetest/build.rc: dummy
 	@build=\"STRINGTABLE { 1 \\\"\`GIT_DIR=${wine_srcdir}.git git rev-parse HEAD 2>/dev/null\`\\\" }\" && (echo \$\$build | cmp -s - \$[@]) || echo \$\$build >\$[@] || (rm -f \$[@] && exit 1)
 dlls/wineandroid.drv/wine-debug.apk: dlls/wineandroid.drv/build.gradle ${wine_srcdir}dlls/wineandroid.drv/AndroidManifest.xml ${wine_srcdir}dlls/wineandroid.drv/WineActivity.java ${wine_srcdir}dlls/wineandroid.drv/wine.svg

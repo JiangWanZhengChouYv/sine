@@ -15,4 +15,4 @@ winegcc_EXTRADEFS = \
 	-DCXX="\"$(CXX)\"" \
 	-DLD="\"$(LD)\""
 
-INSTALL_DEV = $(PROGRAMS) $(winegcc_SYMLINKS)
+INSTALL_DEV = $(PROGRAMS) $(sinegcc_SYMLINKS)

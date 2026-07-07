@@ -24,7 +24,7 @@
 
 int PASCAL WinMain (HINSTANCE inst, HINSTANCE prev, LPSTR cmdline, int show)
 {
-    char name[128] = "Wine ";
+    char name[128] = "Sine ";
     const char * (CDECL *wine_get_version)(void);
 
     InitCommonControls();

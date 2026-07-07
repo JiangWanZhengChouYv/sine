@@ -1,11 +1,11 @@
-PROGRAMS = wine
+PROGRAMS = sine
 
 SOURCES = \
 	wine.c \
-	wine.de.UTF-8.man.in \
-	wine.fr.UTF-8.man.in \
-	wine.man.in \
-	wine.pl.UTF-8.man.in
+	sine.de.UTF-8.man.in \
+	sine.fr.UTF-8.man.in \
+	sine.man.in \
+	sine.pl.UTF-8.man.in
 
 wine_EXTRADEFS = -DBINDIR="\"${bindir}\"" -DLIBDIR="\"${libdir}\""
 

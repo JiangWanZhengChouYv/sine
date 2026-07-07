@@ -132,7 +132,7 @@ static void fatal_error( const char *err, ... )
     va_list args;
 
     va_start( args, err );
-    fprintf( stderr, "wine: " );
+    fprintf( stderr, "sine: " );
     vfprintf( stderr, err, args );
     va_end( args );
     exit(1);
@@ -388,7 +388,7 @@ static void init_paths(void)
 
     if ((build_dir = remove_tail( ntdll_dir, "/dlls/ntdll" )))
     {
-        wineloader = build_path( build_dir, "loader/wine" );
+        wineloader = build_path( build_dir, "loader/sine" );
         alt_build_dir = realpath_dirname( build_path( build_dir, "loader-wow64" ));
     }
     else
@@ -396,7 +396,7 @@ static void init_paths(void)
         if (!(dll_dir = remove_tail( ntdll_dir, get_so_dir(current_machine) ))) dll_dir = ntdll_dir;
         bin_dir = build_relative_path( dll_dir, LIBDIR "/wine", BINDIR );
         data_dir = build_relative_path( dll_dir, LIBDIR "/wine", DATADIR "/wine" );
-        wineloader = build_path( ntdll_dir, "wine" );
+        wineloader = build_path( ntdll_dir, "sine" );
     }
 
     set_dll_path();
@@ -427,9 +427,9 @@ char *get_alternate_wineloader( WORD machine )
     }
 
     if (!build_dir)
-        asprintf( &ret, "%s%s/wine", dll_dir, get_so_dir( machine ));
+        asprintf( &ret, "%s%s/sine", dll_dir, get_so_dir( machine ));
     else if (alt_build_dir)
-        asprintf( &ret, "%s/loader/wine", alt_build_dir );
+        asprintf( &ret, "%s/loader/sine", alt_build_dir );
 
     return ret;
 }
@@ -1493,7 +1493,7 @@ NTSTATUS load_start_exe( UNICODE_STRING *nt_name, void **module )
     status = find_builtin_dll( nt_name, NULL, module, &size, &main_image_info, 0, 0, current_machine, 0, FALSE, 0 );
     if (!NT_SUCCESS(status))
     {
-        MESSAGE( "wine: failed to load start.exe: %x\n", status );
+        MESSAGE( "sine: failed to load start.exe: %x\n", status );
         NtTerminateProcess( GetCurrentProcess(), status );
     }
     return status;
@@ -2045,14 +2045,14 @@ static void check_command_line( int argc, char *argv[] )
 {
     char *basename;
     static const char usage[] =
-        "Usage: wine PROGRAM [ARGUMENTS...]   Run the specified program\n"
-        "       wine --help                   Display this help and exit\n"
-        "       wine --version                Output version information and exit";
+        "Usage: sine PROGRAM [ARGUMENTS...]   Run the specified program\n"
+        "       sine --help                   Display this help and exit\n"
+        "       sine --version                Output version information and exit";
 
     if ((basename = strrchr( argv[0], '/' ))) basename++;
     else basename = argv[0];
 
-    if (strcmp( basename, "wine" )) /* check if there's a builtin exe corresponding to the base name */
+    if (strcmp( basename, "sine" )) /* check if there's a builtin exe corresponding to the base name */
     {
         const char *pe_dir = get_pe_dir( current_machine );
         char *exe;

@@ -1927,7 +1927,7 @@ static RTL_USER_PROCESS_PARAMETERS *build_initial_params( void **module )
     if (status == STATUS_DLL_NOT_FOUND &&
         (strpbrk( main_argv[1], "/\\" ) || (main_argv[1][0] && main_argv[1][1] == ':')))
     {
-        MESSAGE( "wine: failed to open %s\n", debugstr_a(main_argv[1]) );
+        MESSAGE( "sine: failed to open %s\n", debugstr_a(main_argv[1]) );
         NtTerminateProcess( GetCurrentProcess(), status );
     }
 
@@ -2116,7 +2116,7 @@ void init_startup_info(void)
     status = load_main_exe( &nt_name, machine, &module );
     if (!NT_SUCCESS(status))
     {
-        MESSAGE( "wine: failed to start %s: %x\n", debugstr_us(&params->ImagePathName), status );
+        MESSAGE( "sine: failed to start %s: %x\n", debugstr_us(&params->ImagePathName), status );
         NtTerminateProcess( GetCurrentProcess(), status );
     }
     rebuild_argv();
