@@ -1,0 +1,59 @@
+name: Stable Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/stable.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/stable.yml'
+  workflow_dispatch:
+
+jobs:
+  stable-macos:
+    name: Stable Build on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew install llvm lld mingw-w64 bison autoconf automake libtool
+
+      - name: Configure
+        run: |
+          export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
+          autoconf
+          ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig --prefix=/tmp/sine-stable
+
+      - name: Build
+        run: |
+          export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Install
+        run: |
+          export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
+          make install prefix=/tmp/sine-stable
+
+      - name: Verify install
+        run: |
+          /tmp/sine-stable/bin/sine --version
+          ls -la /tmp/sine-stable/
+          du -sh /tmp/sine-stable/
+
+      - name: Package
+        run: |
+          cd /tmp
+          tar -czf sine-stable-macos.tar.gz sine-stable
+          ls -lh sine-stable-macos.tar.gz
+
+      - name: Upload stable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sine-stable-macos
+          path: /tmp/sine-stable-macos.tar.gz
+          if-no-files-found: error
