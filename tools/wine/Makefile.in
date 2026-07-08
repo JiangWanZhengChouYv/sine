@@ -1,4 +1,4 @@
-PROGRAMS = sine
+PROGRAMS = sine wine
 
 SOURCES = \
 	wine.c \
@@ -7,6 +7,7 @@ SOURCES = \
 	sine.man.in \
 	sine.pl.UTF-8.man.in
 
+sine_EXTRADEFS = -DBINDIR="\"${bindir}\"" -DLIBDIR="\"${libdir}\""
 wine_EXTRADEFS = -DBINDIR="\"${bindir}\"" -DLIBDIR="\"${libdir}\""
 
 INSTALL_LIB = $(PROGRAMS)
