@@ -20,6 +20,8 @@ configure
 configure~
 autom4te.cache/
 aclocal.m4
+compile_commands.json
+include/stamp-h
 
 # Wine build directories
 dlls/*/
