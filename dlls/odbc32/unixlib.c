@@ -164,7 +164,10 @@ static NTSTATUS load_odbc(void)
 {
    const char *s = getenv( "LIB_ODBC_DRIVER_MANAGER" );
 
+#ifdef SONAME_LIBODBC
    if (!s || !s[0]) s = SONAME_LIBODBC;
+#endif
+   if (!s || !s[0]) s = "libodbc.so";
    if (!(libodbc = dlopen( s, RTLD_NOW )))
    {
        ERR_(winediag)( "failed to open library %s: %s\n", debugstr_a(s), debugstr_a(dlerror()) );

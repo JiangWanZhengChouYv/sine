@@ -107,7 +107,7 @@ AC_CHECK_TOOL(LD,ld)
 
 AC_SUBST(TARGETFLAGS)
 case $host in
-  x86_64*|amd64*)
+  x86_64*|amd64*|aarch64*)
     if test "x$enable_win64" != "xyes" -a "$cross_compiling" != "yes" -a x"$enable_archs" = x
     then
       CC="$CC -m32"
