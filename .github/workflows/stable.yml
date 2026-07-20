@@ -27,7 +27,7 @@ jobs:
         run: |
           export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
           autoconf
-          ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig --prefix=/tmp/sine-stable
+          CC="clang -arch x86_64" CXX="clang++ -arch x86_64" ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig --prefix=/tmp/sine-stable
 
       - name: Build
         run: |
@@ -57,3 +57,22 @@ jobs:
           name: sine-stable-macos
           path: /tmp/sine-stable-macos.tar.gz
           if-no-files-found: error
+
+      - name: Delete existing release asset
+        uses: dev-drprasad/delete-older-releases@v0.3.2
+        with:
+          keep_latest: 1
+          delete_tags: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload to GitHub Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /tmp/sine-stable-macos.tar.gz
+          asset_name: sine-stable-macos.tar.gz
+          tag: v11.12
+          overwrite: true
+          body: "Sine 11.12 - x86_64 build for macOS"
+          prerelease: false
