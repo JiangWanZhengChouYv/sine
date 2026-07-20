@@ -27,7 +27,7 @@ jobs:
         run: |
           export PATH="/opt/homebrew/opt/bison/bin:/opt/homebrew/opt/llvm/bin:/opt/homebrew/bin:$PATH"
           autoconf
-          CC="clang -arch x86_64" CXX="clang++ -arch x86_64" ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig --prefix=/tmp/sine-stable
+          CC="clang -arch x86_64" CXX="clang++ -arch x86_64" ./configure --enable-win64 --disable-win16 --without-x --without-fontconfig --without-freetype --prefix=/tmp/sine-stable
 
       - name: Build
         run: |
