@@ -58,21 +58,9 @@ jobs:
           path: /tmp/sine-stable-macos.tar.gz
           if-no-files-found: error
 
-      - name: Delete existing release asset
-        uses: dev-drprasad/delete-older-releases@v0.3.2
-        with:
-          keep_latest: 1
-          delete_tags: false
+      - name: Upload to GitHub Release
+        run: |
+          gh release delete-asset v11.12 sine-stable-macos.tar.gz --yes
+          gh release upload v11.12 /tmp/sine-stable-macos.tar.gz --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload to GitHub Release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /tmp/sine-stable-macos.tar.gz
-          asset_name: sine-stable-macos.tar.gz
-          tag: v11.12
-          overwrite: true
-          body: "Sine 11.12 - x86_64 build for macOS"
-          prerelease: false
